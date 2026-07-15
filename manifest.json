@@ -1,0 +1,74 @@
+{
+    "name": "Credit Remedi - AI Credit Repair",
+    "short_name": "Credit Remedi",
+    "description": "AI-Powered Credit Repair Platform - Dispute letters, fundability scores, and lender matching",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a202c",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/icons/icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "categories": [
+        "finance",
+        "productivity",
+        "utilities"
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "AI Chat",
+            "short_name": "Chat",
+            "description": "Open Credit Remedi AI Chat",
+            "url": "/credit-repair-bot",
+            "icons": [
+                {
+                    "src": "/icons/icon.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Disputes",
+            "short_name": "Disputes",
+            "description": "View My Disputes",
+            "url": "/disputes",
+            "icons": [
+                {
+                    "src": "/icons/icon.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Funding",
+            "short_name": "Funding",
+            "description": "Check Fundability Score",
+            "url": "/fundability",
+            "icons": [
+                {
+                    "src": "/icons/icon.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ]
+}

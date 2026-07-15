@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Remedi - Design System Examples</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Copy your app.css content here or link to it */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-info: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --gradient-danger: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            padding: 2rem 0;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-gradient {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-gradient-primary {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            padding: 0.65rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.25s;
+        }
+        
+        .btn-gradient-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: white;
+        }
+        
+        .btn-gradient-success {
+            background: var(--gradient-success);
+            border: none;
+            color: white;
+            padding: 0.65rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.25s;
+        }
+        
+        .btn-gradient-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: white;
+        }
+        
+        .btn-gradient-info {
+            background: var(--gradient-info);
+            border: none;
+            color: white;
+            padding: 0.65rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.25s;
+        }
+        
+        .btn-gradient-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: white;
+        }
+        
+        .card {
+            border-radius: 1rem;
+            transition: all 0.25s;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-border-primary {
+            border-left: 4px solid #667eea;
+        }
+        
+        .card-border-success {
+            border-left: 4px solid #4facfe;
+        }
+        
+        .card-border-warning {
+            border-left: 4px solid #fa709a;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="gradient-text mb-3">Credit Remedi Design System</h1>
+            <p class="lead text-muted">Component Examples & Usage Guide</p>
+        </div>
+
+        <!-- Gradient Cards Section -->
+        <div class="section">
+            <h2 class="mb-4">🎨 Gradient Cards</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card card-gradient">
+                        <div class="card-header">
+                            <h5 class="mb-0">Gradient Card</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0">Beautiful gradient background with white text. Perfect for hero sections!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-gradient">
+                        <div class="card-body text-center">
+                            <i class="bi bi-star-fill fs-1 mb-3"></i>
+                            <h3 class="mb-2">Premium</h3>
+                            <p class="mb-0">Centered content with icon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-gradient">
+                        <div class="card-body">
+                            <h6 class="text-uppercase mb-2">Featured</h6>
+                            <h2 class="mb-3">$49</h2>
+                            <button class="btn btn-light w-100">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colored Border Cards Section -->
+        <div class="section">
+            <h2 class="mb-4">🎯 Colored Border Cards (Metrics)</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card card-border-primary shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-people-fill text-primary fs-3 mb-2"></i>
+                            <h6 class="text-muted text-uppercase small mb-1">Total Users</h6>
+                            <h2 class="gradient-text fw-bold mb-0">1,234</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-border-success shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-graph-up text-success fs-3 mb-2"></i>
+                            <h6 class="text-muted text-uppercase small mb-1">Growth</h6>
+                            <h2 class="fw-bold mb-0">+24%</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-border-warning shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-clock text-warning fs-3 mb-2"></i>
+                            <h6 class="text-muted text-uppercase small mb-1">Pending</h6>
+                            <h2 class="fw-bold mb-0">42</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="bi bi-check-circle text-success fs-3 mb-2"></i>
+                            <h6 class="text-muted text-uppercase small mb-1">Completed</h6>
+                            <h2 class="fw-bold mb-0">567</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gradient Buttons Section -->
+        <div class="section">
+            <h2 class="mb-4">🔘 Gradient Buttons</h2>
+            <div class="d-flex flex-wrap gap-3">
+                <button class="btn btn-gradient-primary">
+                    <i class="bi bi-star me-2"></i>Primary Action
+                </button>
+                <button class="btn btn-gradient-success">
+                    <i class="bi bi-check-circle me-2"></i>Success Action
+                </button>
+                <button class="btn btn-gradient-info">
+                    <i class="bi bi-info-circle me-2"></i>Info Action
+                </button>
+                <button class="btn btn-gradient-primary btn-lg">
+                    Large Button
+                </button>
+                <button class="btn btn-gradient-success btn-sm">
+                    Small Button
+                </button>
+            </div>
+        </div>
+
+        <!-- Standard Enhanced Cards -->
+        <div class="section">
+            <h2 class="mb-4">📋 Standard Enhanced Cards</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Card with Header</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-3">This is a standard card with enhanced styling. It has smooth hover effects and rounded corners.</p>
+                            <button class="btn btn-gradient-primary">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                                    <i class="bi bi-shield-check text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Secure & Protected</h5>
+                                    <small class="text-muted">Your data is safe</small>
+                                </div>
+                            </div>
+                            <p class="mb-0">Card with icon and description. Perfect for feature highlights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List Cards -->
+        <div class="section">
+            <h2 class="mb-4">📝 List Cards</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h5 class="mb-0">Quick Actions</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-folder-check text-primary me-2"></i>
+                                    View Disputes
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-robot text-warning me-2"></i>
+                                    Credit Remedi AI
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-vault text-info me-2"></i>
+                                    Credit Vault
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h5 class="mb-0">Recent Activity</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-3 d-flex align-items-start">
+                                    <span class="badge bg-success me-2 mt-1">New</span>
+                                    <div>
+                                        <strong>Dispute filed</strong>
+                                        <br>
+                                        <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </li>
+                                <li class="mb-3 d-flex align-items-start">
+                                    <span class="badge bg-info me-2 mt-1">Update</span>
+                                    <div>
+                                        <strong>Report uploaded</strong>
+                                        <br>
+                                        <small class="text-muted">5 hours ago</small>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start">
+                                    <span class="badge bg-warning me-2 mt-1">Pending</span>
+                                    <div>
+                                        <strong>Review needed</strong>
+                                        <br>
+                                        <small class="text-muted">1 day ago</small>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="section">
+            <h2 class="mb-4">💻 Code Examples</h2>
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">How to Use These Components</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-3">Gradient Card:</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;div class="card card-gradient"&gt;
+    &lt;div class="card-header"&gt;
+        &lt;h5 class="mb-0"&gt;Title&lt;/h5&gt;
+    &lt;/div&gt;
+    &lt;div class="card-body"&gt;
+        Content here
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <h6 class="mb-3 mt-4">Metric Card:</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;div class="card card-border-primary shadow-sm"&gt;
+    &lt;div class="card-body text-center"&gt;
+        &lt;i class="bi bi-people-fill text-primary fs-3 mb-2"&gt;&lt;/i&gt;
+        &lt;h6 class="text-muted text-uppercase small mb-1"&gt;Total Users&lt;/h6&gt;
+        &lt;h2 class="gradient-text fw-bold mb-0"&gt;1,234&lt;/h2&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <h6 class="mb-3 mt-4">Gradient Button:</h6>
+                    <pre class="bg-light p-3 rounded"><code>&lt;button class="btn btn-gradient-primary"&gt;
+    &lt;i class="bi bi-star me-2"&gt;&lt;/i&gt;Primary Action
+&lt;/button&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-5 mb-3">
+            <p class="text-muted">
+                <i class="bi bi-palette me-2"></i>
+                Credit Remedi Design System - All components are ready to use in your application
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+[31-Jul-2025 22:19:16 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[31-Jul-2025 22:41:43 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[01-Aug-2025 03:40:39 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[01-Aug-2025 12:02:45 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[01-Aug-2025 17:59:58 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[04-Aug-2025 01:36:09 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[04-Aug-2025 16:25:21 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[04-Aug-2025 16:57:58 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[05-Aug-2025 01:29:27 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[05-Aug-2025 18:41:48 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[07-Aug-2025 10:12:03 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[07-Aug-2025 10:12:11 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[07-Aug-2025 10:12:26 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[07-Aug-2025 10:13:14 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[07-Aug-2025 10:13:14 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[07-Aug-2025 10:13:29 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[10-Aug-2025 05:16:55 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/auth.php:17
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/auth.php on line 17
+[10-Aug-2025 05:17:06 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/auth.php:17
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/auth.php on line 17
+[10-Aug-2025 05:17:09 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/cache.php on line 18
+[10-Aug-2025 05:17:12 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/cache.php on line 18
+[10-Aug-2025 05:17:27 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[10-Aug-2025 05:17:42 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/filesystems.php on line 16
+[10-Aug-2025 05:17:55 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[10-Aug-2025 05:18:09 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/filesystems.php on line 16
+[10-Aug-2025 05:18:18 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/queue.php on line 16
+[10-Aug-2025 05:18:24 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/services.php on line 18
+[10-Aug-2025 05:18:31 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/session.php on line 21
+[10-Aug-2025 05:18:43 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/queue.php on line 16
+[10-Aug-2025 05:18:52 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/services.php on line 18
+[10-Aug-2025 05:19:00 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/session.php on line 21
+[10-Aug-2025 06:14:47 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[10-Aug-2025 06:15:05 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[10-Aug-2025 06:16:05 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[10-Aug-2025 06:17:02 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[11-Aug-2025 03:03:40 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[11-Aug-2025 03:03:56 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[11-Aug-2025 03:04:10 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[11-Aug-2025 03:04:35 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[12-Aug-2025 23:57:01 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/app.php on line 16
+[12-Aug-2025 23:57:01 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/cache.php on line 18
+[12-Aug-2025 23:57:01 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/session.php on line 21
+[12-Aug-2025 23:57:01 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/auth.php:17
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/auth.php on line 17
+[12-Aug-2025 23:57:01 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/services.php on line 18
+[21-Aug-2025 05:21:22 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[21-Aug-2025 05:21:22 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[21-Aug-2025 05:24:53 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[21-Aug-2025 05:25:07 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[21-Aug-2025 05:30:17 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[22-Aug-2025 21:24:32 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[22-Aug-2025 21:24:55 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[27-Aug-2025 11:41:25 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home3/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home3/bznjemmy/public_html/config/database.php on line 19
+[30-Nov-2025 18:53:24 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/database.php on line 19
+[30-Nov-2025 18:53:26 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/app.php on line 16
+[30-Nov-2025 19:02:52 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/database.php on line 19
+[30-Nov-2025 19:02:52 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/app.php on line 16
+[30-Nov-2025 20:24:50 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/database.php:19
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/database.php on line 19
+[30-Nov-2025 20:24:51 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home1/bznjemmy/public_html/config/app.php:16
+Stack trace:
+#0 {main}
+  thrown in /home1/bznjemmy/public_html/config/app.php on line 16
