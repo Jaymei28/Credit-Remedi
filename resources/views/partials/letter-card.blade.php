@@ -31,7 +31,7 @@
 
             <!-- Vault Status -->
             @if($letter->posted_1)
-                <span style="background-color: rgba(92,88,107,0.1); color: #5C586B; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">
+                <span style="background-color: rgba(15,169,156,0.1); color: #0FA99C; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     🔒 Saved in Vault
                 </span>
             @endif
@@ -66,13 +66,13 @@
                 @csrf
                 @method('PATCH')
                 @if($letter->sent)
-                    <!-- Active Green state -->
-                    <button type="submit" style="background-color: #E6F7F4; color: #0FA99C; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                        ↩ Mark Unsent
+                    <!-- Active Green state: solid teal with white text -->
+                    <button type="submit" style="background-color: #0FA99C; color: #FFFFFF; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s;">
+                        ✓ Mailed!
                     </button>
                 @else
-                    <!-- Inactive Red/Alert state -->
-                    <button type="submit" style="background-color: #FFF0ED; color: #E0553F; border: 1px solid #E0553F; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                    <!-- Inactive neutral state -->
+                    <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
                         ✉ Mark as Mailed
                     </button>
                 @endif
@@ -82,9 +82,17 @@
             <form action="{{ route('disputes.togglePost', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                    {{ $letter->posted_1 ? '🔓 Remove Vault' : '🔒 Save to Vault' }}
-                </button>
+                @if($letter->posted_1)
+                    <!-- Active saved state -->
+                    <button type="submit" style="background-color: #E6F7F4; color: #0FA99C; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                        🔒 Saved in Vault
+                    </button>
+                @else
+                    <!-- Inactive state -->
+                    <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                        🔒 Save to Vault
+                    </button>
+                @endif
             </form>
         @else
             <!-- Locked State Actions -->
