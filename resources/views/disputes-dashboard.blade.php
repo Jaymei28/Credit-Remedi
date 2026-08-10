@@ -53,7 +53,7 @@
         </div>
 
         <!-- How it Works Guide -->
-        <div style="background: white; border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
+        <div style="border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; background: transparent;">
             <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: #15141C; font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
                 📋 How to Use Your Game Plan
             </h3>
@@ -107,7 +107,7 @@
         <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
             
             <!-- Phase 1 Lane -->
-            <div style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden;">
+            <div style="border: 1px solid #E4E2EB; border-radius: 20px; overflow: hidden; background: transparent;">
                 <div style="background-color: #0FA99C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">⚡ Phase 1: Clean & Challenge</h2>
@@ -132,7 +132,7 @@
             @php 
                 $p1Done = ($p1Letters->isEmpty() || $p1Letters->where('sent', false)->isEmpty());
             @endphp
-            <div id="phase-2-container" style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }}; transition: all 0.3s ease;">
+            <div id="phase-2-container" style="border: 1px solid #E4E2EB; border-radius: 20px; overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }}; transition: all 0.3s ease; background: transparent;">
                 <div style="background-color: #15141C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">🛠️ Phase 2: Core Battle</h2>
