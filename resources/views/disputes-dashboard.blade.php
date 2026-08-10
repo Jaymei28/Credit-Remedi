@@ -102,27 +102,23 @@
             @php 
                 $p1Done = ($p1Letters->isEmpty() || $p1Letters->where('sent', false)->isEmpty());
             @endphp
-            <div style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }};">
+            <div id="phase-2-container" style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }}; transition: all 0.3s ease;">
                 <div style="background-color: #15141C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">🛠️ Phase 2: Core Battle</h2>
                         <p style="font-size: 12px; color: rgba(255,255,255,0.8); margin: 2px 0 0;">Charge-offs and Repossession accounts.</p>
                     </div>
-                    @if(!$p1Done)
-                        <span style="background: rgba(224,85,63,0.15); color: #E0553F; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: 1px solid #E0553F;">Locked</span>
-                    @else
-                        <span style="background: rgba(34,211,197,0.15); color: #22D3C5; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">Active</span>
-                    @endif
+                    <span id="phase-2-status" style="background: {{ $p1Done ? 'rgba(34,211,197,0.15)' : 'rgba(224,85,63,0.15)' }}; color: {{ $p1Done ? '#22D3C5' : '#E0553F' }}; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: {{ $p1Done ? 'none' : '1px solid #E0553F' }}; transition: all 0.3s ease;">
+                        {{ $p1Done ? 'Active' : 'Locked' }}
+                    </span>
                 </div>
 
-                @if(!$p1Done)
-                    <div style="background: #FFF9F3; border-bottom: 1px solid #FFE0C5; padding: 12px 24px; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 16px;">⚠️</span>
-                        <span style="font-size: 12.5px; color: #D69A2D; font-weight: 500;">
-                            <strong>Ally advises:</strong> Complete Phase 1 disputes (mail all Phase 1 letters) before unlocking Phase 2. This isolates charge-offs for higher deletion odds.
-                        </span>
-                    </div>
-                @endif
+                <div id="phase-2-warning" style="display: {{ !$p1Done ? 'flex' : 'none' }}; background: #FFF9F3; border-bottom: 1px solid #FFE0C5; padding: 12px 24px; align-items: center; gap: 8px;">
+                    <span style="font-size: 16px;">⚠️</span>
+                    <span style="font-size: 12.5px; color: #D69A2D; font-weight: 500;">
+                        <strong>Ally advises:</strong> Complete Phase 1 disputes (mail all Phase 1 letters) before unlocking Phase 2. This isolates charge-offs for higher deletion odds.
+                    </span>
+                </div>
 
                 <div style="padding: 24px; display: grid; gap: 16px;">
                     @php $p2Letters = $phases[2] ?? collect(); @endphp
@@ -140,27 +136,23 @@
             @php 
                 $p2Done = $p1Done && ($p2Letters->isEmpty() || $p2Letters->where('sent', false)->isEmpty());
             @endphp
-            <div style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p2Done ? '1' : '0.65' }};">
+            <div id="phase-3-container" style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p2Done ? '1' : '0.65' }}; transition: all 0.3s ease;">
                 <div style="background-color: #15141C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">✨ Phase 3: Goodwill & Polish</h2>
                         <p style="font-size: 12px; color: rgba(255,255,255,0.8); margin: 2px 0 0;">Late Payment history corrections and Goodwill campaigns.</p>
                     </div>
-                    @if(!$p2Done)
-                        <span style="background: rgba(224,85,63,0.15); color: #E0553F; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: 1px solid #E0553F;">Locked</span>
-                    @else
-                        <span style="background: rgba(34,211,197,0.15); color: #22D3C5; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase;">Active</span>
-                    @endif
+                    <span id="phase-3-status" style="background: {{ $p2Done ? 'rgba(34,211,197,0.15)' : 'rgba(224,85,63,0.15)' }}; color: {{ $p2Done ? '#22D3C5' : '#E0553F' }}; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: {{ $p2Done ? 'none' : '1px solid #E0553F' }}; transition: all 0.3s ease;">
+                        {{ $p2Done ? 'Active' : 'Locked' }}
+                    </span>
                 </div>
 
-                @if(!$p2Done)
-                    <div style="background: #FFF9F3; border-bottom: 1px solid #FFE0C5; padding: 12px 24px; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 16px;">⚠️</span>
-                        <span style="font-size: 12.5px; color: #D69A2D; font-weight: 500;">
-                            <strong>Ally advises:</strong> Finish your Phase 2 disputes before starting late payment adjustments. This keeps your dispute history credible.
-                        </span>
-                    </div>
-                @endif
+                <div id="phase-3-warning" style="display: {{ !$p2Done ? 'flex' : 'none' }}; background: #FFF9F3; border-bottom: 1px solid #FFE0C5; padding: 12px 24px; align-items: center; gap: 8px;">
+                    <span style="font-size: 16px;">⚠️</span>
+                    <span style="font-size: 12.5px; color: #D69A2D; font-weight: 500;">
+                        <strong>Ally advises:</strong> Finish your Phase 2 disputes before starting late payment adjustments. This keeps your dispute history credible.
+                    </span>
+                </div>
 
                 <div style="padding: 24px; display: grid; gap: 16px;">
                     @php $p3Letters = $phases[3] ?? collect(); @endphp
@@ -215,6 +207,87 @@
         document.getElementById('edit-letter-modal').style.display = 'none';
     }
 
+    function checkPhaseLocks() {
+        // Count unsent letters in Phase 1
+        const unsentP1 = document.querySelectorAll('.letter-card[data-phase="1"][data-sent="false"]').length;
+        // Count unsent letters in Phase 2
+        const unsentP2 = document.querySelectorAll('.letter-card[data-phase="2"][data-sent="false"]').length;
+
+        // Determine locks
+        const p1Done = (unsentP1 === 0);
+        const p2Done = (p1Done && unsentP2 === 0);
+
+        // Update Phase 2 UI
+        const phase2Container = document.getElementById('phase-2-container');
+        const phase2Status = document.getElementById('phase-2-status');
+        const phase2Warning = document.getElementById('phase-2-warning');
+
+        if (p1Done) {
+            phase2Container.style.opacity = '1';
+            phase2Status.innerText = 'Active';
+            phase2Status.style.background = 'rgba(34,211,197,0.15)';
+            phase2Status.style.color = '#22D3C5';
+            phase2Status.style.border = 'none';
+            phase2Warning.style.display = 'none';
+
+            // Unlock letter cards in Phase 2
+            document.querySelectorAll('.letter-card[data-phase="2"]').forEach(card => {
+                card.style.backgroundColor = 'transparent';
+                card.querySelector('.unlocked-actions').style.display = 'inline-flex';
+                card.querySelector('.locked-placeholder').style.display = 'none';
+            });
+        } else {
+            phase2Container.style.opacity = '0.65';
+            phase2Status.innerText = 'Locked';
+            phase2Status.style.background = 'rgba(224,85,63,0.15)';
+            phase2Status.style.color = '#E0553F';
+            phase2Status.style.border = '1px solid #E0553F';
+            phase2Warning.style.display = 'flex';
+
+            // Lock letter cards in Phase 2
+            document.querySelectorAll('.letter-card[data-phase="2"]').forEach(card => {
+                card.style.backgroundColor = '#F8F7FA';
+                card.querySelector('.unlocked-actions').style.display = 'none';
+                card.querySelector('.locked-placeholder').style.display = 'inline-flex';
+            });
+        }
+
+        // Update Phase 3 UI
+        const phase3Container = document.getElementById('phase-3-container');
+        const phase3Status = document.getElementById('phase-3-status');
+        const phase3Warning = document.getElementById('phase-3-warning');
+
+        if (p2Done) {
+            phase3Container.style.opacity = '1';
+            phase3Status.innerText = 'Active';
+            phase3Status.style.background = 'rgba(34,211,197,0.15)';
+            phase3Status.style.color = '#22D3C5';
+            phase3Status.style.border = 'none';
+            phase3Warning.style.display = 'none';
+
+            // Unlock letter cards in Phase 3
+            document.querySelectorAll('.letter-card[data-phase="3"]').forEach(card => {
+                card.style.backgroundColor = 'transparent';
+                card.querySelector('.unlocked-actions').style.display = 'inline-flex';
+                card.querySelector('.locked-placeholder').style.display = 'none';
+            });
+        } else {
+            phase3Container.style.opacity = '0.65';
+            phase3Status.innerText = 'Locked';
+            phase3Status.style.background = 'rgba(224,85,63,0.15)';
+            phase3Status.style.color = '#E0553F';
+            phase3Status.style.border = '1px solid #E0553F';
+            phase3Warning.style.display = 'flex';
+
+            // Lock letter cards in Phase 3
+            document.querySelectorAll('.letter-card[data-phase="3"]').forEach(card => {
+                card.style.backgroundColor = '#F8F7FA';
+                card.querySelector('.unlocked-actions').style.display = 'none';
+                card.querySelector('.locked-placeholder').style.display = 'inline-flex';
+            });
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         // Intercept sent form submits (Mark as Mailed)
         document.querySelectorAll('.toggle-sent-form').forEach(form => {
@@ -222,7 +295,7 @@
                 e.preventDefault();
                 const formAction = this.action;
                 const btn = this.querySelector('.sent-btn');
-                const card = this.closest('div').parentElement;
+                const card = this.closest('.letter-card');
                 const sentBadge = card.querySelector('.sent-badge');
 
                 // Mute button during ajax
@@ -255,6 +328,8 @@
                             sentBadge.style.backgroundColor = 'rgba(15,169,156,0.1)';
                             sentBadge.style.color = '#0FA99C';
                             sentBadge.innerText = '✓ Mailed';
+                            
+                            card.setAttribute('data-sent', 'true');
                         } else {
                             // Inactive state
                             btn.style.backgroundColor = '#FFFFFF';
@@ -266,7 +341,12 @@
                             sentBadge.style.backgroundColor = 'rgba(224,85,63,0.1)';
                             sentBadge.style.color = '#E0553F';
                             sentBadge.innerText = '● Ready to Mail';
+                            
+                            card.setAttribute('data-sent', 'false');
                         }
+                        
+                        // Check locks immediately in real time
+                        checkPhaseLocks();
                     }
                 })
                 .catch(error => {
@@ -283,7 +363,7 @@
                 e.preventDefault();
                 const formAction = this.action;
                 const btn = this.querySelector('.vault-btn');
-                const card = this.closest('div').parentElement;
+                const card = this.closest('.letter-card');
                 const vaultBadge = card.querySelector('.vault-badge');
 
                 btn.disabled = true;

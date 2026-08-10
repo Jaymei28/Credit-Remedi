@@ -1,4 +1,4 @@
-<div style="border: 1px solid #E4E2EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? '#F8F7FA' : 'transparent' }}; position: relative; transition: all 0.2s ease;">
+<div class="letter-card" data-id="{{ $letter->id }}" data-phase="{{ $letter->phase }}" data-sent="{{ $letter->sent ? 'true' : 'false' }}" style="border: 1px solid #E4E2EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? '#F8F7FA' : 'transparent' }}; position: relative; transition: all 0.2s ease;">
     
     <!-- Top Row: Bureau & Badges -->
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
@@ -42,18 +42,19 @@
 
     <!-- Bottom: Action Buttons -->
     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid #F0EFF4; padding-top: 12px; margin-top: 2px;">
-        @if(!$locked)
+        <!-- Active Actions (Hidden if locked) -->
+        <div class="unlocked-actions" style="display: {{ !$locked ? 'inline-flex' : 'none' }}; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%;">
             <!-- Download PDF -->
             <a href="{{ route('disputes.downloadPdf', $letter->id) }}" style="background-color: #0FA99C; color: white; border: none; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.15s;">
                 📥 Download PDF
             </a>
             
-            <!-- Edit Button using data attribute to avoid JSON quote conflicts -->
+            <!-- Edit Button -->
             <button onclick="openEditModal({{ $letter->id }})" id="edit-btn-{{ $letter->id }}" data-content="{{ $letter->letter_content }}" style="background-color: #FFFFFF; color: #15141C; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
                 ✏️ Edit Letter
             </button>
 
-            <!-- Toggle Sent Form (AJAX targeted) -->
+            <!-- Toggle Sent Form -->
             <form class="toggle-sent-form" data-id="{{ $letter->id }}" action="{{ route('disputes.updateSent', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
@@ -62,7 +63,7 @@
                 </button>
             </form>
 
-            <!-- Toggle Vault Form (AJAX targeted) -->
+            <!-- Toggle Vault Form -->
             <form class="toggle-vault-form" data-id="{{ $letter->id }}" action="{{ route('disputes.togglePost', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
@@ -70,12 +71,12 @@
                     {{ $letter->posted_1 ? '🔒 Saved in Vault' : '🔒 Save to Vault' }}
                 </button>
             </form>
-        @else
-            <!-- Locked State Actions -->
-            <span style="font-size: 12px; color: #8B879A; display: inline-flex; align-items: center; gap: 6px;">
-                🔒 Locked — complete Phase {{ $letter->phase - 1 }} disputes first to unlock.
-            </span>
-        @endif
+        </div>
+
+        <!-- Locked State Placeholder -->
+        <span class="locked-placeholder" style="display: {{ $locked ? 'inline-flex' : 'none' }}; font-size: 12px; color: #8B879A; align-items: center; gap: 6px;">
+            🔒 Locked — complete Phase {{ $letter->phase - 1 }} disputes first to unlock.
+        </span>
     </div>
 
 </div>
