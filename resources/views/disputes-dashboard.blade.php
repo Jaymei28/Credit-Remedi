@@ -155,8 +155,12 @@
                     @forelse($p2Letters as $letter)
                         @include('partials.letter-card', ['letter' => $letter, 'locked' => !$p1Done])
                     @empty
-                        <div style="text-align: center; padding: 30px; color: #8B879A; font-size: 14px; border: 1px dashed #E4E2EB; border-radius: 12px;">
-                            No Phase 2 letters generated.
+                        <div style="text-align: center; padding: 30px 20px; color: #8B879A; border: 1px dashed #E4E2EB; border-radius: 12px; background-color: #FAF9FC;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">ℹ️</div>
+                            <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 6px;">No Phase 2 letters generated</h4>
+                            <p style="font-size: 12px; color: #8B879A; margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
+                                Phase 2 targets <strong>Charge-offs</strong> and <strong>Repossessions</strong>. If your uploaded credit report doesn't contain these specific negative accounts, no letters are needed and you can proceed directly.
+                            </p>
                         </div>
                     @endforelse
                 </div>
@@ -189,8 +193,12 @@
                     @forelse($p3Letters as $letter)
                         @include('partials.letter-card', ['letter' => $letter, 'locked' => !$p2Done])
                     @empty
-                        <div style="text-align: center; padding: 30px; color: #8B879A; font-size: 14px; border: 1px dashed #E4E2EB; border-radius: 12px;">
-                            No Phase 3 letters generated.
+                        <div style="text-align: center; padding: 30px 20px; color: #8B879A; border: 1px dashed #E4E2EB; border-radius: 12px; background-color: #FAF9FC;">
+                            <div style="font-size: 20px; margin-bottom: 8px;">ℹ️</div>
+                            <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 6px;">No Phase 3 letters generated</h4>
+                            <p style="font-size: 12px; color: #8B879A; margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
+                                Phase 3 targets <strong>Late Payments</strong>. If your uploaded credit report doesn't contain late payment history, no letters are needed and your credit cleanup is complete!
+                            </p>
                         </div>
                     @endforelse
                 </div>
