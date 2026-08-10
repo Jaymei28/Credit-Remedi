@@ -19,22 +19,14 @@
         
         <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
             <!-- Sent Status -->
-            @if($letter->sent)
-                <span style="background-color: rgba(15,169,156,0.1); color: #0FA99C; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
-                    ✓ Mailed
-                </span>
-            @else
-                <span style="background-color: rgba(224,85,63,0.1); color: #E0553F; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
-                    ● Ready to Mail
-                </span>
-            @endif
+            <span class="sent-badge" style="background-color: {{ $letter->sent ? 'rgba(15,169,156,0.1)' : 'rgba(224,85,63,0.1)' }}; color: {{ $letter->sent ? '#0FA99C' : '#E0553F' }}; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                {{ $letter->sent ? '✓ Mailed' : '● Ready to Mail' }}
+            </span>
 
             <!-- Vault Status -->
-            @if($letter->posted_1)
-                <span style="background-color: rgba(15,169,156,0.1); color: #0FA99C; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
-                    🔒 Saved in Vault
-                </span>
-            @endif
+            <span class="vault-badge" style="background-color: rgba(15,169,156,0.1); color: #0FA99C; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: {{ $letter->posted_1 ? 'inline-flex' : 'none' }}; align-items: center; gap: 4px;">
+                🔒 Saved in Vault
+            </span>
         </div>
     </div>
 
@@ -61,38 +53,22 @@
                 ✏️ Edit Letter
             </button>
 
-            <!-- Toggle Sent -->
-            <form action="{{ route('disputes.updateSent', $letter->id) }}" method="POST" style="display:inline;">
+            <!-- Toggle Sent Form (AJAX targeted) -->
+            <form class="toggle-sent-form" data-id="{{ $letter->id }}" action="{{ route('disputes.updateSent', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                @if($letter->sent)
-                    <!-- Active Green state: solid teal with white text -->
-                    <button type="submit" style="background-color: #0FA99C; color: #FFFFFF; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s;">
-                        ✓ Mailed!
-                    </button>
-                @else
-                    <!-- Inactive neutral state -->
-                    <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                        ✉ Mark as Mailed
-                    </button>
-                @endif
+                <button type="submit" class="sent-btn" style="background-color: {{ $letter->sent ? '#0FA99C' : '#FFFFFF' }}; color: {{ $letter->sent ? '#FFFFFF' : '#5C586B' }}; border: 1px solid {{ $letter->sent ? '#0FA99C' : '#E4E2EB' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: {{ $letter->sent ? '700' : '600' }}; cursor: pointer; transition: all 0.15s;">
+                    {{ $letter->sent ? '✓ Mailed!' : '✉ Mark as Mailed' }}
+                </button>
             </form>
 
-            <!-- Toggle Vault -->
-            <form action="{{ route('disputes.togglePost', $letter->id) }}" method="POST" style="display:inline;">
+            <!-- Toggle Vault Form (AJAX targeted) -->
+            <form class="toggle-vault-form" data-id="{{ $letter->id }}" action="{{ route('disputes.togglePost', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                @if($letter->posted_1)
-                    <!-- Active saved state -->
-                    <button type="submit" style="background-color: #E6F7F4; color: #0FA99C; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                        🔒 Saved in Vault
-                    </button>
-                @else
-                    <!-- Inactive state -->
-                    <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                        🔒 Save to Vault
-                    </button>
-                @endif
+                <button type="submit" class="vault-btn" style="background-color: {{ $letter->posted_1 ? '#E6F7F4' : '#FFFFFF' }}; color: {{ $letter->posted_1 ? '#0FA99C' : '#5C586B' }}; border: 1px solid {{ $letter->posted_1 ? '#0FA99C' : '#E4E2EB' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                    {{ $letter->posted_1 ? '🔒 Saved in Vault' : '🔒 Save to Vault' }}
+                </button>
             </form>
         @else
             <!-- Locked State Actions -->

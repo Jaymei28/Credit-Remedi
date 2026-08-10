@@ -154,7 +154,7 @@ class CreditRepairBotController extends Controller
 
 
 
-    public function togglePost($id)
+    public function togglePost(Request $request, $id)
     {
         $dispute = DisputeLetter::findOrFail($id);
 
@@ -166,6 +166,14 @@ class CreditRepairBotController extends Controller
         $dispute->posted_1 = !$dispute->posted_1;
         $dispute->posted_1_ts = $dispute->posted_1 ? now() : null;
         $dispute->save();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'posted_1' => $dispute->posted_1,
+                'message' => $dispute->posted_1 ? 'Marked as posted.' : 'Marked as unposted.'
+            ]);
+        }
 
         return redirect()->back()
             ->with('success', $dispute->posted_1 ? 'Marked as posted.' : 'Marked as unposted.');
@@ -184,6 +192,14 @@ class CreditRepairBotController extends Controller
         $dispute->sent_date = $dispute->sent ? now() : null;
         $dispute->sent_ts = now();
         $dispute->save();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'sent' => $dispute->sent,
+                'message' => $dispute->sent ? 'Marked as mailed.' : 'Marked as unmailed.'
+            ]);
+        }
 
         return redirect()->back()->with('success', $dispute->sent ? 'Marked as mailed.' : 'Marked as unmailed.');
     }

@@ -214,5 +214,120 @@
     function closeEditModal() {
         document.getElementById('edit-letter-modal').style.display = 'none';
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Intercept sent form submits (Mark as Mailed)
+        document.querySelectorAll('.toggle-sent-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formAction = this.action;
+                const btn = this.querySelector('.sent-btn');
+                const card = this.closest('div').parentElement;
+                const sentBadge = card.querySelector('.sent-badge');
+
+                // Mute button during ajax
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+
+                fetch(formAction, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': this.querySelector('input[name="_token"]').value,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    body: new FormData(this)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+
+                    if (data.success) {
+                        if (data.sent) {
+                            // Green solid Mailed state
+                            btn.style.backgroundColor = '#0FA99C';
+                            btn.style.color = '#FFFFFF';
+                            btn.style.borderColor = '#0FA99C';
+                            btn.style.fontWeight = '700';
+                            btn.innerText = '✓ Mailed!';
+                            
+                            sentBadge.style.backgroundColor = 'rgba(15,169,156,0.1)';
+                            sentBadge.style.color = '#0FA99C';
+                            sentBadge.innerText = '✓ Mailed';
+                        } else {
+                            // Inactive state
+                            btn.style.backgroundColor = '#FFFFFF';
+                            btn.style.color = '#5C586B';
+                            btn.style.borderColor = '#E4E2EB';
+                            btn.style.fontWeight = '600';
+                            btn.innerText = '✉ Mark as Mailed';
+                            
+                            sentBadge.style.backgroundColor = 'rgba(224,85,63,0.1)';
+                            sentBadge.style.color = '#E0553F';
+                            sentBadge.innerText = '● Ready to Mail';
+                        }
+                    }
+                })
+                .catch(error => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    console.error('Error toggling sent status:', error);
+                });
+            });
+        });
+
+        // Intercept vault form submits (Save to Vault)
+        document.querySelectorAll('.toggle-vault-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formAction = this.action;
+                const btn = this.querySelector('.vault-btn');
+                const card = this.closest('div').parentElement;
+                const vaultBadge = card.querySelector('.vault-badge');
+
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+
+                fetch(formAction, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': this.querySelector('input[name="_token"]').value,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    body: new FormData(this)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+
+                    if (data.success) {
+                        if (data.posted_1) {
+                            btn.style.backgroundColor = '#E6F7F4';
+                            btn.style.color = '#0FA99C';
+                            btn.style.borderColor = '#0FA99C';
+                            btn.innerText = '🔒 Saved in Vault';
+                            
+                            vaultBadge.style.display = 'inline-flex';
+                        } else {
+                            btn.style.backgroundColor = '#FFFFFF';
+                            btn.style.color = '#5C586B';
+                            btn.style.borderColor = '#E4E2EB';
+                            btn.innerText = '🔒 Save to Vault';
+                            
+                            vaultBadge.style.display = 'none';
+                        }
+                    }
+                })
+                .catch(error => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    console.error('Error toggling vault status:', error);
+                });
+            });
+        });
+    });
 </script>
 @endsection
