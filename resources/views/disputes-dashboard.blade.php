@@ -3,7 +3,7 @@
 @section('title', 'Phased Dispute Board - Ally AI')
 
 @section('content')
-<div style="background-color: #F2F0F7; min-height: 92vh; padding: 40px 16px; font-family: 'Inter', sans-serif;">
+<div style="background-color: var(--bg-secondary); min-height: 92vh; padding: 40px 16px; font-family: 'Inter', sans-serif; color: var(--text-primary);">
     <div style="max-width: 1040px; margin: 0 auto;">
         
         <!-- Meet Ally Coaching Header -->
@@ -53,30 +53,30 @@
         </div>
 
         <!-- How it Works Guide -->
-        <div style="border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; background: transparent;">
-            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: #15141C; font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
+        <div style="border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; margin-bottom: 32px; background: var(--bg-primary); box-shadow: var(--shadow-sm);">
+            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: var(--text-primary); font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
                 📋 How to Use Your Game Plan
             </h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
                 <div style="display: flex; gap: 12px;">
                     <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">1</div>
                     <div>
-                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Download & Mail</h4>
-                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">Click <strong>Download PDF</strong> for each active letter, print them, and mail them to the credit bureaus.</p>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 4px;">Download & Mail</h4>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Click <strong>Download PDF</strong> for each active letter, print them, and mail them to the credit bureaus.</p>
                     </div>
                 </div>
                 <div style="display: flex; gap: 12px;">
                     <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">2</div>
                     <div>
-                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Mark as Mailed</h4>
-                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">After mailing, click <strong>Mark as Mailed</strong>. This tracks the dates and unlocks the next phase dynamically.</p>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 4px;">Mark as Mailed</h4>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5;">After mailing, click <strong>Mark as Mailed</strong>. This tracks the dates and unlocks the next phase dynamically.</p>
                     </div>
                 </div>
                 <div style="display: flex; gap: 12px;">
                     <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">3</div>
                     <div>
-                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Save to Vault</h4>
-                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">Click <strong>Save to Vault</strong> to archive the letter. You can view all archived letters in the <strong>Disputes</strong> tab.</p>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 4px;">Save to Vault</h4>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Click <strong>Save to Vault</strong> to archive the letter. You can view all archived letters in the <strong>Disputes</strong> tab.</p>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
 
         <!-- Strategy Advice Drawer -->
         @if(!empty($findings))
-            <div style="background: white; border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
-                <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: #15141C; font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
+            <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: var(--shadow-sm);">
+                <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: var(--text-primary); font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
                     💡 Strategic Insights from Ally
                 </h3>
                 <div style="display: grid; gap: 14px; max-height: 250px; overflow-y: auto; padding-right: 8px;">
@@ -93,10 +93,10 @@
                         <div style="border-left: 3px solid {{ $finding['tagColor'] }}; padding-left: 14px;">
                             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
                                 <span style="font-size: 11px; font-weight: 700; color: {{ $finding['tagColor'] }}; text-transform: uppercase; letter-spacing: 0.03em;">{{ $finding['tag'] }}</span>
-                                <span style="font-size: 11px; color: #8B879A;">• {{ $finding['timeline'] }}</span>
+                                <span style="font-size: 11px; color: var(--text-muted);">• {{ $finding['timeline'] }}</span>
                             </div>
-                            <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 2px;">{{ $finding['title'] }}</h4>
-                            <p style="font-size: 12.5px; color: #5C586B; margin: 0; line-height: 1.5;">{{ $finding['why'] }}</p>
+                            <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 2px;">{{ $finding['title'] }}</h4>
+                            <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0; line-height: 1.5;">{{ $finding['why'] }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -107,7 +107,7 @@
         <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
             
             <!-- Phase 1 Lane -->
-            <div style="border: 1px solid #E4E2EB; border-radius: 20px; overflow: hidden; background: transparent;">
+            <div style="border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; background: var(--bg-primary); box-shadow: var(--shadow-sm);">
                 <div style="background-color: #0FA99C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">⚡ Phase 1: Clean & Challenge</h2>
@@ -121,7 +121,7 @@
                     @forelse($p1Letters as $letter)
                         @include('partials.letter-card', ['letter' => $letter, 'locked' => false])
                     @empty
-                        <div style="text-align: center; padding: 30px; color: #8B879A; font-size: 14px; border: 1px dashed #E4E2EB; border-radius: 12px;">
+                        <div style="text-align: center; padding: 30px; color: var(--text-muted); font-size: 14px; border: 1px dashed var(--border-color); border-radius: 12px;">
                             No Phase 1 letters generated.
                         </div>
                     @endforelse
@@ -132,7 +132,7 @@
             @php 
                 $p1Done = ($p1Letters->isEmpty() || $p1Letters->where('sent', false)->isEmpty());
             @endphp
-            <div id="phase-2-container" style="border: 1px solid #E4E2EB; border-radius: 20px; overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }}; transition: all 0.3s ease; background: transparent;">
+            <div id="phase-2-container" style="border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; opacity: {{ $p1Done ? '1' : '0.65' }}; transition: all 0.3s ease; background: var(--bg-primary); box-shadow: var(--shadow-sm);">
                 <div style="background-color: #15141C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">🛠️ Phase 2: Core Battle</h2>
@@ -155,10 +155,10 @@
                     @forelse($p2Letters as $letter)
                         @include('partials.letter-card', ['letter' => $letter, 'locked' => !$p1Done])
                     @empty
-                        <div style="text-align: center; padding: 30px 20px; color: #8B879A; border: 1px dashed #E4E2EB; border-radius: 12px; background-color: #FAF9FC;">
+                        <div style="text-align: center; padding: 30px 20px; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 12px; background-color: var(--bg-secondary);">
                             <div style="font-size: 20px; margin-bottom: 8px;">ℹ️</div>
-                            <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 6px;">No Phase 2 letters generated</h4>
-                            <p style="font-size: 12px; color: #8B879A; margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
+                            <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 6px;">No Phase 2 letters generated</h4>
+                            <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
                                 Phase 2 targets <strong>Charge-offs</strong> and <strong>Repossessions</strong>. If your uploaded credit report doesn't contain these specific negative accounts, no letters are needed and you can proceed directly.
                             </p>
                         </div>
@@ -170,7 +170,7 @@
             @php 
                 $p2Done = $p1Done && ($p2Letters->isEmpty() || $p2Letters->where('sent', false)->isEmpty());
             @endphp
-            <div id="phase-3-container" style="background: white; border: 1px solid #E4E2EB; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.01); overflow: hidden; opacity: {{ $p2Done ? '1' : '0.65' }}; transition: all 0.3s ease;">
+            <div id="phase-3-container" style="border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; opacity: {{ $p2Done ? '1' : '0.65' }}; transition: all 0.3s ease; background: var(--bg-primary); box-shadow: var(--shadow-sm);">
                 <div style="background-color: #15141C; color: white; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <h2 style="font-size: 16px; font-weight: 700; margin: 0;">✨ Phase 3: Goodwill & Polish</h2>
@@ -193,10 +193,10 @@
                     @forelse($p3Letters as $letter)
                         @include('partials.letter-card', ['letter' => $letter, 'locked' => !$p2Done])
                     @empty
-                        <div style="text-align: center; padding: 30px 20px; color: #8B879A; border: 1px dashed #E4E2EB; border-radius: 12px; background-color: #FAF9FC;">
+                        <div style="text-align: center; padding: 30px 20px; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 12px; background-color: var(--bg-secondary);">
                             <div style="font-size: 20px; margin-bottom: 8px;">ℹ️</div>
-                            <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 6px;">No Phase 3 letters generated</h4>
-                            <p style="font-size: 12px; color: #8B879A; margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
+                            <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 6px;">No Phase 3 letters generated</h4>
+                            <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5; max-width: 480px; margin: 0 auto;">
                                 Phase 3 targets <strong>Late Payments</strong>. If your uploaded credit report doesn't contain late payment history, no letters are needed and your credit cleanup is complete!
                             </p>
                         </div>
@@ -211,7 +211,7 @@
 
 <!-- Edit Letter Modal -->
 <div id="edit-letter-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center; padding: 16px;">
-    <div style="background: white; border-radius: 16px; width: 100%; max-width: 640px; overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+    <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 640px; overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; box-shadow: var(--shadow-xl);">
         <div style="background-color: #15141C; color: white; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
             <h3 style="font-size: 16px; font-weight: 600; margin: 0;">✍️ Edit Dispute Letter</h3>
             <button onclick="closeEditModal()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 0;">&times;</button>
@@ -220,11 +220,11 @@
             @csrf
             @method('PATCH')
             <div style="padding: 24px; flex: 1; overflow-y: auto;">
-                <label style="display: block; font-size: 12px; font-weight: 600; color: #3A3844; margin-bottom: 8px;">Letter Content</label>
-                <textarea id="modal-letter-content" name="letter_content" style="width: 100%; height: 400px; border: 1px solid #E4E2EB; border-radius: 8px; padding: 14px; font-family: monospace; font-size: 13px; color: #15141C; outline: none; resize: vertical;" required></textarea>
+                <label style="display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Letter Content</label>
+                <textarea id="modal-letter-content" name="letter_content" style="width: 100%; height: 400px; border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; font-family: monospace; font-size: 13px; color: var(--text-primary); background-color: var(--bg-secondary); outline: none; resize: vertical;" required></textarea>
             </div>
-            <div style="background-color: #F8F7FA; border-top: 1px solid #E4E2EB; padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px;">
-                <button type="button" onclick="closeEditModal()" style="background: white; border: 1px solid #E4E2EB; border-radius: 8px; padding: 8px 16px; font-size: 13.5px; color: #5C586B; cursor: pointer;">Cancel</button>
+            <div style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" onclick="closeEditModal()" style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 16px; font-size: 13.5px; color: var(--text-secondary); cursor: pointer;">Cancel</button>
                 <button type="submit" style="background-color: #0FA99C; color: white; border: none; border-radius: 8px; padding: 8px 20px; font-size: 13.5px; font-weight: 600; cursor: pointer;">Save Letter</button>
             </div>
         </form>
