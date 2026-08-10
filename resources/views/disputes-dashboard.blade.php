@@ -202,7 +202,9 @@
 </div>
 
 <script>
-    function openEditModal(letterId, content) {
+    function openEditModal(letterId) {
+        const btn = document.getElementById('edit-btn-' + letterId);
+        const content = btn.getAttribute('data-content');
         const form = document.getElementById('edit-letter-form');
         form.action = `/disputes/${letterId}/update-letter`;
         document.getElementById('modal-letter-content').value = content;

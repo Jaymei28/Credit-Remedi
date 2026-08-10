@@ -56,8 +56,8 @@
                 📥 Download PDF
             </a>
             
-            <!-- Edit -->
-            <button onclick="openEditModal({{ $letter->id }}, @json($letter->letter_content))" style="background-color: #FFFFFF; color: #15141C; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+            <!-- Edit Button using data attribute to avoid JSON quote conflicts -->
+            <button onclick="openEditModal({{ $letter->id }})" id="edit-btn-{{ $letter->id }}" data-content="{{ $letter->letter_content }}" style="background-color: #FFFFFF; color: #15141C; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
                 ✏️ Edit Letter
             </button>
 
@@ -65,9 +65,17 @@
             <form action="{{ route('disputes.updateSent', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                <button type="submit" style="background-color: #FFFFFF; color: #5C586B; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
-                    {{ $letter->sent ? '↩ Mark Unsent' : '✉ Mark as Mailed' }}
-                </button>
+                @if($letter->sent)
+                    <!-- Active Green state -->
+                    <button type="submit" style="background-color: #E6F7F4; color: #0FA99C; border: 1px solid #0FA99C; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                        ↩ Mark Unsent
+                    </button>
+                @else
+                    <!-- Inactive Red/Alert state -->
+                    <button type="submit" style="background-color: #FFF0ED; color: #E0553F; border: 1px solid #E0553F; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                        ✉ Mark as Mailed
+                    </button>
+                @endif
             </form>
 
             <!-- Toggle Vault -->
