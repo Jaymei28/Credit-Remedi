@@ -79,6 +79,13 @@
                         <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5;">Click <strong>Save to Vault</strong> to archive the letter. You can view all archived letters in the <strong>Disputes</strong> tab.</p>
                     </div>
                 </div>
+                <div style="display: flex; gap: 12px;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">4</div>
+                    <div>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin: 0 0 4px;">Update Report</h4>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin: 0; line-height: 1.5;">When you get updates, go to the <a href="{{ route('identityiq.import') }}" style="color: #0FA99C; font-weight: 600; text-decoration: underline;">IdentityIQ</a> tab to upload your latest report. Ally will automatically update your plan.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
