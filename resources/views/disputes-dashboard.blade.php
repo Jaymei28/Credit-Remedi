@@ -52,6 +52,36 @@
             </div>
         </div>
 
+        <!-- How it Works Guide -->
+        <div style="background: white; border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
+            <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 18px; color: #15141C; font-weight: 700; margin: 0 0 16px; display: flex; align-items: center; gap: 8px;">
+                📋 How to Use Your Game Plan
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                <div style="display: flex; gap: 12px;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">1</div>
+                    <div>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Download & Mail</h4>
+                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">Click <strong>Download PDF</strong> for each active letter, print them, and mail them to the credit bureaus.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">2</div>
+                    <div>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Mark as Mailed</h4>
+                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">After mailing, click <strong>Mark as Mailed</strong>. This tracks the dates and unlocks the next phase dynamically.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(15,169,156,0.1); color: #0FA99C; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0;">3</div>
+                    <div>
+                        <h4 style="font-size: 13.5px; font-weight: 600; color: #15141C; margin: 0 0 4px;">Save to Vault</h4>
+                        <p style="font-size: 12px; color: #5C586B; margin: 0; line-height: 1.5;">Click <strong>Save to Vault</strong> to archive the letter. You can view all archived letters in the <strong>Disputes</strong> tab.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Strategy Advice Drawer -->
         @if(!empty($findings))
             <div style="background: white; border: 1px solid #E4E2EB; border-radius: 16px; padding: 24px; margin-bottom: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.01);">
