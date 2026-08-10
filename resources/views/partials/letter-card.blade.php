@@ -1,4 +1,4 @@
-<div style="border: 1px solid #E4E2EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? '#F8F7FA' : '#FFFFFF' }}; position: relative; transition: all 0.2s ease;">
+<div style="border: 1px solid #E4E2EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? '#F8F7FA' : 'transparent' }}; position: relative; transition: all 0.2s ease;">
     
     <!-- Top Row: Bureau & Badges -->
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">

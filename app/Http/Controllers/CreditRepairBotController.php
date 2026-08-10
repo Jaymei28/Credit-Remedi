@@ -167,7 +167,7 @@ class CreditRepairBotController extends Controller
         $dispute->posted_1_ts = $dispute->posted_1 ? now() : null;
         $dispute->save();
 
-        return redirect()->route('disputes.show', $dispute->id)
+        return redirect()->back()
             ->with('success', $dispute->posted_1 ? 'Marked as posted.' : 'Marked as unposted.');
     }
 
@@ -175,16 +175,17 @@ class CreditRepairBotController extends Controller
     {
         $dispute = DisputeLetter::findOrFail($id);
 
-        $request->validate([
-            'sent_date' => 'nullable|date',
-        ]);
+        // Only allow owner or admin
+        if (auth()->user()->role !== 'admin' && $dispute->user_id !== auth()->id()) {
+            abort(403);
+        }
 
-        $dispute->sent = $request->has('sent'); // checkbox returns null if unchecked
-        $dispute->sent_date = $request->input('sent_date') ?? null;
-        $dispute->sent_ts = now(); // always update timestamp when sent info is updated
+        $dispute->sent = !$dispute->sent;
+        $dispute->sent_date = $dispute->sent ? now() : null;
+        $dispute->sent_ts = now();
         $dispute->save();
 
-        return redirect()->back()->with('success', 'Sent info updated successfully.');
+        return redirect()->back()->with('success', $dispute->sent ? 'Marked as mailed.' : 'Marked as unmailed.');
     }
 
     public function updateLetter(Request $request, $id)
@@ -202,7 +203,7 @@ class CreditRepairBotController extends Controller
         $dispute->letter_content = $validated['letter_content'];
         $dispute->save();
 
-        return redirect()->route('disputes.show', $dispute->id)
+        return redirect()->back()
             ->with('success', 'Letter content updated successfully.');
     }
 
