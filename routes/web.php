@@ -117,14 +117,16 @@ Route::middleware(['auth', 'onboarding'])->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-// Show the chat interface
-Route::get('/credit-repair-bot', [CreditRepairBotController::class, 'showChat'])->name('credit-repair-bot')->middleware(['auth', 'onboarding', 'premium']);
+// Show the Phased Dispute Dashboard
+Route::get('/credit-repair-bot', [CreditRepairBotController::class, 'showDashboard'])->name('credit-repair-bot')->middleware(['auth', 'onboarding', 'premium']);
 
-// Handle AJAX chat submission - USING OLD CONTROLLER FOR AI GENERATION
-Route::post('/credit-repair-bot', [CreditRepairBotController::class, 'chat'])->name('credit-repair-bot.send')->middleware(['auth', 'premium']);
+// Questionnaire routes
+Route::get('/credit-reports/questionnaire', [CreditRepairBotController::class, 'showQuestionnaire'])->name('credit-reports.questionnaire')->middleware(['auth', 'onboarding']);
+Route::post('/credit-reports/questionnaire', [CreditRepairBotController::class, 'saveQuestionnaireData'])->name('credit-reports.saveQuestionnaire')->middleware(['auth', 'onboarding']);
 
-// Reset chat session
-Route::post('/credit-repair-bot/reset', [CreditRepairBotControllerRefactored::class, 'reset'])->name('credit-repair-bot.reset')->middleware(['auth', 'premium']);
+// Review & Approve routes
+Route::get('/credit-reports/review', [CreditRepairBotController::class, 'showReviewScreen'])->name('credit-reports.review')->middleware(['auth', 'onboarding']);
+Route::post('/credit-reports/review', [CreditRepairBotController::class, 'saveReviewData'])->name('credit-reports.saveReview')->middleware(['auth', 'onboarding']);
 
 // Creditor autocomplete API
 Route::get('/api/creditors/search', [CreditRepairBotController::class, 'searchCreditors'])->name('api.creditors.search')->middleware(['auth', 'premium']);
