@@ -17,8 +17,11 @@ use Smalot\PdfParser\Parser as SmalotParser;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Creditor;
 use App\Models\BureauAddress;
-
-
+use App\Services\AuditService;
+use App\Services\AIVisionExtractorService;
+use App\Services\IdentityIQParserService;
+use App\Services\PhasedLetterGenerator;
+use App\Services\AIReportExtractorService;
 
 class CreditRepairBotController extends Controller
 {
@@ -1511,37 +1514,435 @@ class CreditRepairBotController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'pdf_file' => 'required|mimes:pdf|max:10240', // 10MB
+            'credit_file' => 'required|file|max:15360', // 15MB max
         ]);
 
-        $file = $request->file('pdf_file');
+        $file = $request->file('credit_file');
+        $ext = strtolower($file->getClientOriginalExtension());
         $filename = time().'_'.$file->getClientOriginalName();
         $path = $file->storeAs('credit_reports', $filename, 'public');
-
         $fullPath = Storage::disk('public')->path($path);
 
-        // Extract text
+        $parsedData = [
+            'personal_info' => [
+                'first_name' => auth()->user()->name,
+                'last_name' => '',
+                'date_of_birth' => '',
+                'current_address' => '',
+                'identifiers' => ['none'],
+            ],
+            'accounts' => [],
+            'inquiries' => [],
+            'score' => 'unknown',
+        ];
+
         try {
-            $text = (new SpatiePdf())->setPdf($fullPath)->text();
+            if ($ext === 'html' || $ext === 'htm') {
+                // HTML Parser
+                $html = file_get_contents($fullPath);
+                $parser = new IdentityIQParserService($html);
+                $res = $parser->parseAll();
+                
+                $parsedData['personal_info'] = [
+                    'first_name' => $res['personal_info']['first_name'] ?? auth()->user()->name,
+                    'last_name' => $res['personal_info']['last_name'] ?? '',
+                    'date_of_birth' => $res['personal_info']['date_of_birth'] ?? '',
+                    'current_address' => $res['personal_info']['current_address'] ?? '',
+                    'identifiers' => $res['personal_info']['identifiers'] ?? ['none'],
+                ];
+
+                foreach ($res['accounts'] as $acc) {
+                    if ($acc['is_collection'] || $acc['is_chargeoff'] || $acc['is_repo'] || $acc['has_lates']) {
+                        $parsedData['accounts'][] = [
+                            'creditor_name' => $acc['creditor_name'],
+                            'account_number' => $acc['account_number'],
+                            'account_type' => $acc['is_collection'] ? 'collection' : ($acc['is_chargeoff'] ? 'charge-off' : ($acc['is_repo'] ? 'repossession' : 'late payment')),
+                            'balance' => $acc['balance'],
+                            'bureau' => $acc['bureau'] ?? 'All',
+                            'dispute_reason' => 'Incorrect information, please verify validity and accuracy of reporting details.',
+                        ];
+                    }
+                }
+
+                foreach ($res['inquiries'] as $inq) {
+                    $parsedData['inquiries'][] = [
+                        'creditor_name' => $inq['creditor_name'],
+                        'inquiry_date' => $inq['inquiry_date'] ?? 'N/A',
+                        'bureau' => $inq['bureau'] ?? 'All',
+                        'dispute_reason' => 'No permissible purpose / unauthorized inquiry.',
+                    ];
+                }
+
+                // Get first score
+                if (!empty($res['credit_scores'])) {
+                    $parsedData['score'] = $res['credit_scores'][0]['score'] >= 740 ? '740plus' : ($res['credit_scores'][0]['score'] >= 670 ? '670_739' : ($res['credit_scores'][0]['score'] >= 580 ? '580_669' : 'sub580'));
+                }
+
+            } elseif (in_array($ext, ['png', 'jpg', 'jpeg'])) {
+                // Vision AI
+                $extractor = new AIVisionExtractorService();
+                $res = $extractor->extractFromImage($file);
+                
+                if (!$res['success'] || !($res['data']['is_valid_report'] ?? false)) {
+                    return back()->with('error', 'The uploaded image does not appear to be a valid credit report screenshot. Please upload a clear screenshot of your credit details.');
+                }
+
+                $data = $res['data'];
+                $parsedData['personal_info'] = [
+                    'first_name' => $data['personal_info']['first_name'] ?? auth()->user()->name,
+                    'last_name' => $data['personal_info']['last_name'] ?? '',
+                    'date_of_birth' => $data['personal_info']['date_of_birth'] ?? '',
+                    'current_address' => $data['personal_info']['current_address'] ?? '',
+                    'identifiers' => ['none'],
+                ];
+                $parsedData['score'] = $data['score'] ?? 'unknown';
+
+                foreach ($data['accounts'] ?? [] as $acc) {
+                    if (($acc['account_status'] ?? '') === 'negative' || ($acc['account_type'] ?? '') !== 'positive') {
+                        $parsedData['accounts'][] = [
+                            'creditor_name' => $acc['creditor_name'],
+                            'account_number' => $acc['account_number'] ?? 'XXXX',
+                            'account_type' => $acc['account_type'] ?? 'collection',
+                            'balance' => $acc['balance'] ?? 0,
+                            'bureau' => $acc['bureau'] ?? 'All',
+                            'dispute_reason' => 'Incorrect information, please verify validity and accuracy of reporting details.',
+                        ];
+                    }
+                }
+
+                foreach ($data['inquiries'] ?? [] as $inq) {
+                    $parsedData['inquiries'][] = [
+                        'creditor_name' => $inq['creditor_name'],
+                        'inquiry_date' => $inq['inquiry_date'] ?? 'N/A',
+                        'bureau' => $inq['bureau'] ?? 'All',
+                        'dispute_reason' => 'No permissible purpose / unauthorized inquiry.',
+                    ];
+                }
+
+            } elseif ($ext === 'pdf') {
+                // PDF Text Extraction
+                try {
+                    $text = (new SpatiePdf())->setPdf($fullPath)->text();
+                } catch (\Exception $e) {
+                    $parser = new SmalotParser();
+                    $pdf = $parser->parseFile($fullPath);
+                    $text = $pdf->getText();
+                }
+
+                // AI extraction
+                $extractor = new AIReportExtractorService();
+                $res = $extractor->extractFromText($text);
+
+                if (!empty($res['personal_info'])) {
+                    $parsedData['personal_info'] = [
+                        'first_name' => $res['personal_info']['first_name'] ?? auth()->user()->name,
+                        'last_name' => $res['personal_info']['last_name'] ?? '',
+                        'date_of_birth' => $res['personal_info']['date_of_birth'] ?? '',
+                        'current_address' => $res['personal_info']['current_address'] ?? '',
+                        'identifiers' => ['none'],
+                    ];
+                }
+
+                foreach ($res['accounts'] ?? [] as $acc) {
+                    $status = strtolower($acc['account_status'] ?? '');
+                    if ($status === 'negative' || $status === 'collection' || $status === 'charge-off') {
+                        $parsedData['accounts'][] = [
+                            'creditor_name' => $acc['creditor_name'],
+                            'account_number' => $acc['account_number'] ?? 'XXXX',
+                            'account_type' => $acc['account_type'] ?? 'collection',
+                            'balance' => $acc['balance'] ?? 0,
+                            'bureau' => $acc['bureau'] ?? 'All',
+                            'dispute_reason' => 'Incorrect information, please verify validity and accuracy of reporting details.',
+                        ];
+                    }
+                }
+
+                foreach ($res['inquiries'] ?? [] as $inq) {
+                    $parsedData['inquiries'][] = [
+                        'creditor_name' => $inq['creditor_name'],
+                        'inquiry_date' => $inq['inquiry_date'] ?? 'N/A',
+                        'bureau' => $inq['bureau'] ?? 'All',
+                        'dispute_reason' => 'No permissible purpose / unauthorized inquiry.',
+                    ];
+                }
+            }
+
+            session(['parsed_credit_data' => $parsedData]);
+            return redirect()->route('credit-reports.review');
+
         } catch (\Exception $e) {
-            try {
-                $parser = new SmalotParser();
-                $pdf = $parser->parseFile($fullPath);
-                $text = $pdf->getText();
-            } catch (\Exception $e2) {
-                return back()->with('error', 'Failed to read PDF text: '.$e2->getMessage());
+            Log::error('Upload/parse failed: ' . $e->getMessage());
+            return back()->with('error', 'Failed to parse credit file: ' . $e->getMessage());
+        }
+    }
+
+    public function showReviewScreen()
+    {
+        $parsedData = session('parsed_credit_data');
+        if (!$parsedData) {
+            return redirect()->route('credit-reports.uploadPage')->with('error', 'Please upload a credit report first.');
+        }
+
+        return view('credit-reports.review', compact('parsedData'));
+    }
+
+    public function saveReviewData(Request $request)
+    {
+        $user = auth()->user();
+        
+        // Retrieve and format confirmed items from request
+        $personalInfo = $request->input('personal_info', []);
+        $accounts = $request->input('accounts', []);
+        $inquiries = $request->input('inquiries', []);
+
+        $confirmedData = [
+            'personal_info' => $personalInfo,
+            'accounts' => $accounts,
+            'inquiries' => $inquiries,
+        ];
+
+        // Store user address details if extracted
+        if (!empty($personalInfo['current_address']) && empty($user->address)) {
+            $user->update([
+                'address' => $personalInfo['current_address'],
+                'date_of_birth' => $personalInfo['date_of_birth'] ?? $user->date_of_birth,
+            ]);
+        }
+
+        // Calculate score & findings
+        $auditService = new AuditService();
+        $score = $auditService->computeScore([
+            'score' => session('parsed_credit_data.score', 'unknown'),
+            'negatives' => array_column($accounts, 'account_type'),
+            'identifiers' => $personalInfo['identifiers'] ?? [],
+        ]);
+
+        // Save CreditReport db record
+        CreditReport::create([
+            'user_id' => $user->id,
+            'original_filename' => 'Verified Credit Report',
+            'file_path' => 'N/A',
+            'extracted_text' => json_encode($confirmedData),
+            'personal_info' => $personalInfo,
+            'total_accounts_count' => count($accounts),
+            'open_accounts_count' => 0,
+            'negative_accounts_count' => count($accounts),
+            'hard_inquiries_count' => count($inquiries),
+        ]);
+
+        // Save user credit score
+        DB::table('credit_scores')->insert([
+            'user_id' => $user->id,
+            'equifax_score' => $score,
+            'experian_score' => $score,
+            'transunion_score' => $score,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Generate letters
+        $letterGenerator = new PhasedLetterGenerator();
+        $res = $letterGenerator->generateLettersForUser($user, $confirmedData);
+
+        // Clear session data
+        session()->forget('parsed_credit_data');
+
+        if ($res['success']) {
+            return redirect()->route('credit-repair-bot')->with('success', 'Your Credit Game Plan and ' . $res['count'] . ' dispute letters have been created successfully!');
+        } else {
+            return redirect()->route('credit-repair-bot')->with('error', 'Your Game Plan was created, but letter generation failed: ' . $res['error']);
+        }
+    }
+
+    public function showQuestionnaire()
+    {
+        return view('credit-reports.questionnaire');
+    }
+
+    public function saveQuestionnaireData(Request $request)
+    {
+        $user = auth()->user();
+        
+        $answers = $request->validate([
+            'goal' => 'required|string',
+            'identifiers' => 'array',
+            'negatives' => 'array',
+            'co_count' => 'nullable|string',
+            'co_status' => 'nullable|string',
+            'late_count' => 'nullable|string',
+            'utilization' => 'required|string',
+            'mix' => 'required|string',
+            'score' => 'required|string',
+        ]);
+
+        // Generate confirmed data structure based on manual quiz answers
+        $personalInfo = [
+            'first_name' => $user->name,
+            'last_name' => '',
+            'identifiers' => $answers['identifiers'] ?? ['none'],
+        ];
+
+        $accounts = [];
+        $negatives = $answers['negatives'] ?? [];
+
+        if (in_array('collections', $negatives)) {
+            $accounts[] = [
+                'creditor_name' => 'Collection Agency',
+                'account_number' => 'XXXX',
+                'account_type' => 'collection',
+                'balance' => 350.00,
+                'bureau' => 'All',
+                'dispute_reason' => 'I am disputing the validity of this collection account, please provide proof of authorization.'
+            ];
+        }
+
+        if (in_array('chargeoffs', $negatives)) {
+            $accounts[] = [
+                'creditor_name' => 'Original Creditor (Charge-Off)',
+                'account_number' => 'XXXX',
+                'account_type' => 'charge-off',
+                'balance' => 1200.00,
+                'bureau' => 'All',
+                'dispute_reason' => 'Incorrect accounting, please verify reported balance and payment records.'
+            ];
+        }
+
+        if (in_array('repo', $negatives)) {
+            $accounts[] = [
+                'creditor_name' => 'Auto Finance Company (Reposcession)',
+                'account_number' => 'XXXX',
+                'account_type' => 'repossession',
+                'balance' => 8500.00,
+                'bureau' => 'All',
+                'dispute_reason' => 'I am requesting full verification of the deficiency balance calculations following the resale.'
+            ];
+        }
+
+        if (in_array('lates', $negatives)) {
+            $accounts[] = [
+                'creditor_name' => 'Credit Account (Late Payments)',
+                'account_number' => 'XXXX',
+                'account_type' => 'late payment',
+                'balance' => 0.00,
+                'bureau' => 'All',
+                'dispute_reason' => 'I am disputing the late payment notations reported for this account, please correct.'
+            ];
+        }
+
+        $inquiries = [];
+        if (in_array('inquiries', $negatives)) {
+            $inquiries[] = [
+                'creditor_name' => 'Credit Pull Agency',
+                'inquiry_date' => now()->subMonths(3)->format('m/d/Y'),
+                'bureau' => 'All',
+                'dispute_reason' => 'Unauthorized inquiry without permissible purpose.'
+            ];
+        }
+
+        $confirmedData = [
+            'personal_info' => $personalInfo,
+            'accounts' => $accounts,
+            'inquiries' => $inquiries,
+        ];
+
+        // Audit score
+        $auditService = new AuditService();
+        $score = $auditService->computeScore($answers);
+
+        // Save report & scores
+        CreditReport::create([
+            'user_id' => $user->id,
+            'original_filename' => 'Manual Onboarding Quiz',
+            'file_path' => 'N/A',
+            'extracted_text' => json_encode($confirmedData),
+            'personal_info' => $personalInfo,
+            'total_accounts_count' => count($accounts),
+            'open_accounts_count' => 0,
+            'negative_accounts_count' => count($accounts),
+            'hard_inquiries_count' => count($inquiries),
+        ]);
+
+        DB::table('credit_scores')->insert([
+            'user_id' => $user->id,
+            'equifax_score' => $score,
+            'experian_score' => $score,
+            'transunion_score' => $score,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Generate letters
+        $letterGenerator = new PhasedLetterGenerator();
+        $res = $letterGenerator->generateLettersForUser($user, $confirmedData);
+
+        if ($res['success']) {
+            return redirect()->route('credit-repair-bot')->with('success', 'Your Credit Game Plan and ' . $res['count'] . ' dispute letters have been created successfully!');
+        } else {
+            return redirect()->route('credit-repair-bot')->with('error', 'Your Game Plan was created, but letter generation failed: ' . $res['error']);
+        }
+    }
+
+    public function showDashboard(Request $request)
+    {
+        $user = auth()->user();
+
+        // Check if user has dispute letters
+        $letters = DisputeLetter::where('user_id', $user->id)->get();
+
+        if ($letters->isEmpty()) {
+            // Check if user has uploaded a report
+            $hasReport = CreditReport::where('user_id', $user->id)->exists();
+            if (!$hasReport) {
+                return redirect()->route('credit-reports.uploadPage')->with('message', 'Welcome! Please upload your credit report or continue with questions to get started.');
             }
         }
 
-        $report = CreditReport::create([
-            'user_id' => auth()->id(),
-            'original_filename' => $file->getClientOriginalName(),
-            'file_path' => $path,
-            'extracted_text' => $text,
-        ]);
+        // Parse audit report data to build dynamic recommendations and scores
+        $report = CreditReport::where('user_id', $user->id)->latest()->first();
+        $auditScore = 70; // fallback
+        $findings = [];
+        $complexity = 'low';
+        $scoreLabel = ['Strengthening Phase', '#D69A2D'];
 
-        return redirect()->route('credit-reports.show', $report->id)
-            ->with('success', 'PDF uploaded & extracted successfully.');
+        if ($report) {
+            $reportData = json_decode($report->extracted_text, true);
+            if ($reportData) {
+                $auditService = new AuditService();
+                
+                // Fetch saved score
+                $savedScore = DB::table('credit_scores')
+                    ->where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
+                    ->value('equifax_score');
+
+                $auditScore = $savedScore ?: 70;
+
+                // Reconstruct answers array for findings
+                $negTypes = array_column($reportData['accounts'] ?? [], 'account_type');
+                if (!empty($reportData['inquiries'] ?? [])) {
+                    $negTypes[] = 'inquiries';
+                }
+                
+                $answers = [
+                    'negatives' => $negTypes,
+                    'identifiers' => $reportData['personal_info']['identifiers'] ?? [],
+                    'score' => $auditScore >= 740 ? '740plus' : ($auditScore >= 670 ? '670_739' : ($auditScore >= 580 ? '580_669' : 'sub580')),
+                ];
+
+                $findings = $auditService->buildFindings($answers);
+                $complexity = $auditService->computeComplexity($answers, $findings);
+                $scoreLabel = $auditService->getScoreLabel($auditScore);
+            }
+        }
+
+        // Group letters by Phase
+        $phases = [
+            1 => $letters->where('phase', 1),
+            2 => $letters->where('phase', 2),
+            3 => $letters->where('phase', 3),
+        ];
+
+        return view('disputes-dashboard', compact('user', 'phases', 'auditScore', 'scoreLabel', 'findings', 'complexity'));
     }
 
     // Show single report
