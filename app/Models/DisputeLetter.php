@@ -26,7 +26,8 @@ class DisputeLetter extends Model
         'desired_resolution',
         'sent',
         'sent_date',
-        'sent_ts'
+        'sent_ts',
+        'phase'
     ];
 
     protected $casts = [
