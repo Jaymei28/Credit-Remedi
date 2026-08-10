@@ -1731,14 +1731,16 @@ class CreditRepairBotController extends Controller
         ]);
 
         // Save user credit score
-        DB::table('credit_scores')->insert([
-            'user_id' => $user->id,
-            'equifax_score' => $score,
-            'experian_score' => $score,
-            'transunion_score' => $score,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        foreach (['EQF', 'EXP', 'TUC'] as $bureauCode) {
+            DB::table('credit_scores')->insert([
+                'user_id' => $user->id,
+                'bureau' => $bureauCode,
+                'score' => $score,
+                'score_model' => 'VantageScore',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         // Generate letters
         $letterGenerator = new PhasedLetterGenerator();
@@ -1862,14 +1864,16 @@ class CreditRepairBotController extends Controller
             'hard_inquiries_count' => count($inquiries),
         ]);
 
-        DB::table('credit_scores')->insert([
-            'user_id' => $user->id,
-            'equifax_score' => $score,
-            'experian_score' => $score,
-            'transunion_score' => $score,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        foreach (['EQF', 'EXP', 'TUC'] as $bureauCode) {
+            DB::table('credit_scores')->insert([
+                'user_id' => $user->id,
+                'bureau' => $bureauCode,
+                'score' => $score,
+                'score_model' => 'VantageScore',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         // Generate letters
         $letterGenerator = new PhasedLetterGenerator();
@@ -1913,7 +1917,7 @@ class CreditRepairBotController extends Controller
                 $savedScore = DB::table('credit_scores')
                     ->where('user_id', $user->id)
                     ->orderBy('created_at', 'desc')
-                    ->value('equifax_score');
+                    ->value('score');
 
                 $auditScore = $savedScore ?: 70;
 
