@@ -482,7 +482,7 @@
                                                     <button 
                                                         class="btn btn-sm btn-primary rounded-pill px-3 py-2" 
                                                         style="font-size: 0.875rem;"
-                                                        onclick="@if(isset($option['value']) && $option['value'] === 'view_vault')window.location.href='{{ route('credit-vault') }}';@elseif(isset($option['value']) && $option['value'] === 'View Disputes')window.location.href='/my-disputes';@else window.handleSendMessage('{{ addslashes($option['value'] ?? $option['label']) }}');@endif">
+                                                         onclick="@if(isset($option['value']) && $option['value'] === 'View Disputes')window.location.href='/my-disputes';@else window.handleSendMessage('{{ addslashes($option['value'] ?? $option['label']) }}');@endif">
                                                         {{ $option['label'] }}
                                                     </button>
                                                 @endforeach
@@ -812,10 +812,7 @@
                         btn.style.fontSize = '0.875rem';
                         btn.textContent = option.label;
                         
-                        // Special handling for Credit Vault button
-                        if (option.value === 'view_vault') {
-                            btn.onclick = () => window.location.href = '{{ route("credit-vault") }}';
-                        } else if (option.value === 'View Disputes') {
+                        if (option.value === 'View Disputes') {
                             btn.onclick = () => window.location.href = '/my-disputes';
                         } else {
                             btn.onclick = () => window.handleSendMessage(option.value || option.label);

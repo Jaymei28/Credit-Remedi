@@ -710,18 +710,6 @@ class CreditRepairBotController extends Controller
             ];
         }
         
-        // View in Credit Vault
-        if ($messageLower === 'view_vault') {
-            return [
-                'text' => "You can view all your saved dispute letters in the Credit Vault.\n\n[Click here to open Credit Vault](/credit-vault)",
-                'type' => 'options',
-                'options' => [
-                    ['label' => '🏠 Main Menu', 'value' => 'Hi'],
-                    ['label' => '➕ Create Another Letter', 'value' => 'Create Dispute Letter'],
-                ],
-                'state' => ['step' => 'main_menu', 'data' => []]
-            ];
-        }
         
         // View specific letter
         if (Str::startsWith($messageLower, 'view_letter_')) {
@@ -1487,7 +1475,7 @@ class CreditRepairBotController extends Controller
             foreach ($savedLetters as $letter) {
                 $lettersList .= "📄 **{$letter->credit_bureau}** - Ready to send\n";
             }
-            $lettersList .= "\n📋 **Find and manage your letters in the Disputes tab.**\n_(Note: These are not stored in the Credit Vault. Credit Vault is your educational hub for learning dispute filing steps.)_";
+            $lettersList .= "\n📋 **Find and manage your letters in the Disputes tab.**";
             
             $messages[] = [
                 'role' => 'assistant',

@@ -465,10 +465,6 @@
                 <div class="feature-section-header">Additional Features</div>
                 <li class="feature-item">
                     <span class="feature-icon included">✓</span>
-                    <span>Video Tutorials & Credit Education Vault</span>
-                </li>
-                <li class="feature-item">
-                    <span class="feature-icon included">✓</span>
                     <span>Direct Bureau & Regulator Filing Access</span>
                 </li>
                 <li class="feature-item excluded">
@@ -553,10 +549,6 @@
 
                 <!-- Additional Features -->
                 <div class="feature-section-header">Additional Features</div>
-                <li class="feature-item">
-                    <span class="feature-icon included">✓</span>
-                    <span>Video Tutorials & Credit Education Vault</span>
-                </li>
                 <li class="feature-item">
                     <span class="feature-icon included">✓</span>
                     <span>Direct Bureau & Regulator Filing Access</span>

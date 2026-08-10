@@ -47,7 +47,7 @@ class AIAnalysisController extends Controller
         }
 
         if (!$latestReport) {
-            return redirect()->route('credit-vault')
+            return redirect()->route('credit-reports.uploadPage')
                 ->with('error', 'Please upload a credit report first before running AI analysis.');
         }
 

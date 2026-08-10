@@ -546,8 +546,8 @@
                         <h5 class="mb-0">⚡ Quick Actions</h5>
                     </div>
                     <div class="card-body">
-                        @if (in_array(auth()->user()->plan_type, ['starter', 'standard', 'pro', 'premium']) || auth()->user()->role === 'admin')
-                            {{-- Pro/Premium Plan: 6 buttons --}}
+                        @if (in_array(auth()->user()->plan_type, ['pro', 'premium']) || auth()->user()->role === 'admin')
+                            {{-- Pro/Premium Plan: 5 buttons --}}
                             <div class="row g-3 justify-content-center">
                                 <div class="col-lg col-md-4 col-sm-6 text-center">
                                     <a href="{{ route('disputes.index') }}" class="btn btn-gradient-primary btn-md w-100">
@@ -559,25 +559,16 @@
                                         <img src="{{ asset('AllyAI.png') }}" alt="Ally AI" style="height: 20px; width: 20px;"> Chat with Ally
                                     </a>
                                 </div>
-                                @if (in_array(auth()->user()->plan_type, ['pro', 'premium']) || auth()->user()->role === 'admin')
-                                    <div class="col-lg col-md-4 col-sm-6 text-center">
-                                        <a href="{{ route('fundability.index') }}" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff;">
-                                            <i class="bi bi-graph-up-arrow me-2"></i> Fundability
-                                        </a>
-                                    </div>
-                                @endif
                                 <div class="col-lg col-md-4 col-sm-6 text-center">
-                                    <a href="{{ route('credit-vault') }}" class="btn btn-gradient-info btn-md w-100">
-                                        <i class="bi bi-list-check me-2"></i> Credit Vault
+                                    <a href="{{ route('fundability.index') }}" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff;">
+                                        <i class="bi bi-graph-up-arrow me-2"></i> Fundability
                                     </a>
                                 </div>
-                                @if (in_array(auth()->user()->plan_type, ['pro', 'premium']) || auth()->user()->role === 'admin')
-                                    <div class="col-lg col-md-4 col-sm-6 text-center">
-                                        <a href="https://www.skool.com/credit-remedy-academy-5068/about?ref=cd2596c36ce54883a4a1a876af63413a" target="_blank" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%); color: #fff;">
-                                            <i class="bi bi-people-fill me-2"></i> Community
-                                        </a>
-                                    </div>
-                                @endif
+                                <div class="col-lg col-md-4 col-sm-6 text-center">
+                                    <a href="https://www.skool.com/credit-remedy-academy-5068/about?ref=cd2596c36ce54883a4a1a876af63413a" target="_blank" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%); color: #fff;">
+                                        <i class="bi bi-people-fill me-2"></i> Community
+                                    </a>
+                                </div>
                                 <div class="col-lg col-md-4 col-sm-6 text-center">
                                     <a href="mailto:help@creditremedi.com?subject=Need Support - Credit Remedi Dashboard" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: #fff;">
                                         <i class="bi bi-envelope-fill me-2"></i> Contact Support
@@ -585,19 +576,14 @@
                                 </div>
                             </div>
                         @else
-                            {{-- Standard Plan: 3 buttons centered --}}
+                            {{-- Standard/Starter Plan: 2 buttons centered --}}
                             <div class="row g-3 justify-content-center">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <a href="{{ route('disputes.index') }}" class="btn btn-gradient-primary btn-md w-100">
                                         <i class="bi bi-folder-check me-2"></i> My Disputes
                                     </a>
                                 </div>
-                                <div class="col-md-4">
-                                    <a href="{{ route('credit-vault') }}" class="btn btn-gradient-info btn-md w-100">
-                                        <i class="bi bi-list-check me-2"></i> Credit Vault
-                                    </a>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <a href="mailto:help@creditremedi.com?subject=Need Support - Credit Remedi Dashboard" class="btn btn-md w-100 fw-semibold shadow-soft border-0" style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: #fff;">
                                         <i class="bi bi-envelope-fill me-2"></i> Contact Support
                                     </a>

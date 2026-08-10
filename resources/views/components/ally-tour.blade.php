@@ -315,18 +315,10 @@
         {
             message: "Need help? Tap here to chat with me anytime. I'm here to guide you step-by-step.",
             buttons: [
-                { text: 'Awesome', action: 'next', primary: true }
+                { text: 'Finish Tour', action: 'complete', primary: true }
             ],
             target: 'main a[href*="credit-repair-bot"], main .btn:contains("Chat with Ally")',
             position: 'bottom'
-        },
-        {
-            message: "Our Credit Vault contains video guides and tutorials to help you master the process.",
-            buttons: [
-                { text: "Finish Tour", action: 'complete', primary: true }
-            ],
-            target: 'main a[href*="credit-vault"], main .btn:contains("Upload"), main .btn:contains("Credit Vault")',
-            position: 'top'
         }
     ];
     

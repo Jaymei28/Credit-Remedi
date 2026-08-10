@@ -142,9 +142,6 @@
                             </a>
                         </li>
                     @endif
-                    <li class="nav-item mx-lg-1 {{ request()->routeIs('credit-vault') ? 'active' : '' }}">
-                        <a href="{{ route('credit-vault') }}" class="nav-link text-white px-lg-3 py-2" style="white-space: nowrap; font-size: 0.9rem; font-weight: 500;">Vault</a>
-                    </li>
                     <li class="nav-item mx-lg-1 {{ request()->routeIs('identityiq.*') ? 'active' : '' }}">
                         <a href="{{ route('identityiq.import') }}" class="nav-link text-white px-lg-3 py-2" style="white-space: nowrap; font-size: 0.9rem; font-weight: 500;">
                             IdentityIQ
@@ -220,7 +217,6 @@
             @if (auth()->check() && (auth()->user()->has_paid || auth()->user()->role === 'admin'))
                 { selector: 'a[href="{{ route('credit-repair-bot') }}"]', text: '🤖 Credit Remedi AI — your smart assistant for credit repair.' },
             @endif
-            { selector: 'a[href="{{ route('credit-vault') }}"]', text: '🔐 Credit Vault — your go-to place for all guide videos, tutorials, and helpful links. Everything you need to understand and use the platform is stored here securely.' },
             { selector: 'a[href="{{ route('resource-center') }}"]', text: '📚 Find helpful guides and documents in the Resource Center.' }
         ];
 

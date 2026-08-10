@@ -104,10 +104,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
-Route::get('/credit-vault', function () {
-    return view('credit-vault');
-})->name('credit-vault')->middleware(['auth', 'onboarding']);
-
 Route::get('/disputes/filter', [CreditRepairBotController::class, 'filter'])->name('disputes.filter')->middleware(['auth', 'onboarding']);
 
 
