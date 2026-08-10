@@ -1,4 +1,4 @@
-<div class="letter-card" data-id="{{ $letter->id }}" data-phase="{{ $letter->phase }}" data-sent="{{ $letter->sent ? 'true' : 'false' }}" style="border: 1px solid #E4E2EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? '#F8F7FA' : 'transparent' }}; position: relative; transition: all 0.2s ease;">
+<div class="letter-card" data-id="{{ $letter->id }}" data-phase="{{ $letter->phase }}" data-sent="{{ $letter->sent ? 'true' : 'false' }}" style="border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; background-color: {{ $locked ? 'var(--bg-secondary)' : 'transparent' }}; position: relative; transition: all 0.2s ease;">
     
     <!-- Top Row: Bureau & Badges -->
     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
@@ -12,7 +12,7 @@
                     🟢
                 @endif
             </span>
-            <span style="font-size: 14px; font-weight: 700; color: #15141C;">
+            <span style="font-size: 14px; font-weight: 700; color: var(--text-primary);">
                 {{ $letter->credit_bureau }}
             </span>
         </div>
@@ -32,16 +32,16 @@
 
     <!-- Middle: Creditor Info -->
     <div>
-        <h4 style="font-size: 14px; font-weight: 600; color: #15141C; margin: 0 0 2px;">
+        <h4 style="font-size: 14px; font-weight: 600; color: var(--text-primary); margin: 0 0 2px;">
             {{ $letter->creditor_name }}
         </h4>
-        <p style="font-size: 12.5px; color: #8B879A; margin: 0;">
+        <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">
             Account: {{ $letter->account_number }}
         </p>
     </div>
 
     <!-- Bottom: Action Buttons -->
-    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid #F0EFF4; padding-top: 12px; margin-top: 2px;">
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-top: 12px; margin-top: 2px;">
         <!-- Active Actions (Hidden if locked) -->
         <div class="unlocked-actions" style="display: {{ !$locked ? 'inline-flex' : 'none' }}; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%;">
             <!-- Download PDF -->
@@ -50,7 +50,7 @@
             </a>
             
             <!-- Edit Button -->
-            <button onclick="openEditModal({{ $letter->id }})" id="edit-btn-{{ $letter->id }}" data-content="{{ $letter->letter_content }}" style="background-color: #FFFFFF; color: #15141C; border: 1px solid #E4E2EB; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+            <button onclick="openEditModal({{ $letter->id }})" id="edit-btn-{{ $letter->id }}" data-content="{{ $letter->letter_content }}" style="background-color: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
                 ✏️ Edit Letter
             </button>
 
@@ -58,7 +58,7 @@
             <form class="toggle-sent-form" data-id="{{ $letter->id }}" action="{{ route('disputes.updateSent', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                <button type="submit" class="sent-btn" style="background-color: {{ $letter->sent ? '#0FA99C' : '#FFFFFF' }}; color: {{ $letter->sent ? '#FFFFFF' : '#5C586B' }}; border: 1px solid {{ $letter->sent ? '#0FA99C' : '#E4E2EB' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: {{ $letter->sent ? '700' : '600' }}; cursor: pointer; transition: all 0.15s;">
+                <button type="submit" class="sent-btn" style="background-color: {{ $letter->sent ? '#0FA99C' : 'var(--bg-primary)' }}; color: {{ $letter->sent ? '#FFFFFF' : 'var(--text-secondary)' }}; border: 1px solid {{ $letter->sent ? '#0FA99C' : 'var(--border-color)' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: {{ $letter->sent ? '700' : '600' }}; cursor: pointer; transition: all 0.15s;">
                     {{ $letter->sent ? '✓ Mailed!' : '✉ Mark as Mailed' }}
                 </button>
             </form>
@@ -67,14 +67,14 @@
             <form class="toggle-vault-form" data-id="{{ $letter->id }}" action="{{ route('disputes.togglePost', $letter->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('PATCH')
-                <button type="submit" class="vault-btn" style="background-color: {{ $letter->posted_1 ? '#E6F7F4' : '#FFFFFF' }}; color: {{ $letter->posted_1 ? '#0FA99C' : '#5C586B' }}; border: 1px solid {{ $letter->posted_1 ? '#0FA99C' : '#E4E2EB' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
+                <button type="submit" class="vault-btn" style="background-color: {{ $letter->posted_1 ? '#E6F7F4' : 'var(--bg-primary)' }}; color: {{ $letter->posted_1 ? '#0FA99C' : 'var(--text-secondary)' }}; border: 1px solid {{ $letter->posted_1 ? '#0FA99C' : 'var(--border-color)' }}; border-radius: 6px; padding: 8px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;">
                     {{ $letter->posted_1 ? '🔒 Saved in Vault' : '🔒 Save to Vault' }}
                 </button>
             </form>
         </div>
 
         <!-- Locked State Placeholder -->
-        <span class="locked-placeholder" style="display: {{ $locked ? 'inline-flex' : 'none' }}; font-size: 12px; color: #8B879A; align-items: center; gap: 6px;">
+        <span class="locked-placeholder" style="display: {{ $locked ? 'inline-flex' : 'none' }}; font-size: 12px; color: var(--text-muted); align-items: center; gap: 6px;">
             🔒 Locked — complete Phase {{ $letter->phase - 1 }} disputes first to unlock.
         </span>
     </div>
