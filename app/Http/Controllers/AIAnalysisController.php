@@ -110,9 +110,29 @@ class AIAnalysisController extends Controller
                 } catch (\Exception $e) {
                     throw new \Exception('Failed to extract text from PDF: ' . $e->getMessage());
                 }
+            } elseif (in_array($extension, ['html', 'htm', 'txt'])) {
+                try {
+                    $rawContent = file_get_contents($filePath);
+                    if ($extension === 'txt') {
+                        $textContent = $rawContent;
+                    } else {
+                        // Insert block-level spacing in HTML so parsed columns don't merge, then strip HTML tags
+                        $spacedHtml = str_replace(
+                            ['<tr', '<td', '<div', '<p', '</tr', '</td', '</div', '</p', '<br', '<li', '</li'],
+                            ["\n<tr", " \t<td", "\n<div", "\n<p", "\n</tr", " \n</td", "\n</div", "\n</p", "\n<br", "\n<li", "\n</li"],
+                            $rawContent
+                        );
+                        // Strip tags and decode entities
+                        $textContent = html_entity_decode(strip_tags($spacedHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                        // Clean up multiple spaces and double newlines
+                        $textContent = preg_replace('/[ \t]+/', ' ', $textContent);
+                        $textContent = preg_replace('/\n\s*\n/', "\n\n", $textContent);
+                    }
+                } catch (\Exception $e) {
+                    throw new \Exception('Failed to extract text from HTML/TXT file: ' . $e->getMessage());
+                }
             } else {
-                // Assume HTML
-                $textContent = file_get_contents($filePath);
+                throw new \Exception('Unsupported file format. Please upload a PDF, HTML, or TXT file.');
             }
 
             // Use AI to extract and categorize data (extractFromText handles both raw text and HTML)

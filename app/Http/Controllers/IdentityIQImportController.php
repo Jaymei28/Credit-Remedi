@@ -51,10 +51,10 @@ class IdentityIQImportController extends Controller
             set_time_limit(300); // 5 minutes
             DB::beginTransaction();
 
-            // Store the uploaded file
+            // Store the uploaded file explicitly to the public disk
             $file = $request->file('credit_report');
             $filename = 'credit_reports/' . $user->id . '/' . time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public', $filename);
+            $path = $file->storeAs('', $filename, 'public');
             
             // Extract text from file based on extension
             $extension = strtolower($file->getClientOriginalExtension());
