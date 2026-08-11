@@ -40,12 +40,15 @@ class AIReportExtractorService
             Log::info("Processing credit report in " . count($chunks) . " chunks. Total text length: " . strlen($cleanedText));
             Log::debug("Cleaned text sample: " . substr($cleanedText, 0, 500));
             
+            $successChunks = 0;
+            $lastError = 'Unknown extraction error';
             foreach ($chunks as $index => $chunk) {
                 Log::info("Processing chunk " . ($index + 1) . " of " . count($chunks) . " (Size: " . strlen($chunk) . " bytes)");
                 
                 $result = $this->extractFromChunk($chunk, $index);
                 
                 if ($result['success'] && !empty($result['data'])) {
+                    $successChunks++;
                     $data = $result['data'];
                     $accountsInChunk = count($data['accounts'] ?? []);
                     Log::info("Chunk " . ($index + 1) . " result: $accountsInChunk accounts found.");
@@ -107,8 +110,16 @@ class AIReportExtractorService
                         }
                     }
                 } else {
-                    Log::warning("Chunk " . ($index + 1) . " failed or returned no data. Error: " . ($result['error'] ?? 'None'));
+                    $lastError = $result['error'] ?? 'Chunk extraction failed';
+                    Log::warning("Chunk " . ($index + 1) . " failed or returned no data. Error: " . $lastError);
                 }
+            }
+
+            if ($successChunks === 0 && count($chunks) > 0) {
+                return [
+                    'success' => false,
+                    'error' => 'AI Extraction failed: ' . $lastError
+                ];
             }
             
             // Validate and clean accounts before returning
@@ -241,10 +252,16 @@ Now extract from this IdentityIQ report (chunk " . ($chunkIndex + 1) . "):
             ];
         }
 
+        $errorMsg = 'Chunk extraction failed';
+        $responseBody = $response->json();
+        if (isset($responseBody['error']['message'])) {
+            $errorMsg = $responseBody['error']['message'];
+        }
+
         Log::warning("Chunk $chunkIndex extraction failed: " . $response->body());
         return [
             'success' => false,
-            'error' => 'Chunk extraction failed'
+            'error' => $errorMsg
         ];
     }
 
