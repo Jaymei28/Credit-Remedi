@@ -219,7 +219,7 @@
             <!-- Header -->
             <div class="import-header">
                 <h1 class="mb-2" style="font-size: 2rem; font-weight: 700;">📊 Import IdentityIQ Credit Report</h1>
-                <p class="mb-0" style="opacity: 0.95; font-size: 1.05rem;">Upload your IdentityIQ credit report PDF file to automatically extract and analyze your credit data.</p>
+                <p class="mb-0" style="opacity: 0.95; font-size: 1.05rem;">Upload your IdentityIQ credit report PDF or HTML file to automatically extract and analyze your credit data.</p>
             </div>
 
             <!-- Success/Error Messages -->
@@ -248,14 +248,14 @@
                     
                     <div class="mb-3">
                         <label for="credit_report" class="form-label">
-                            Select IdentityIQ Report (PDF file)
+                            Select IdentityIQ Report (PDF, HTML, or TXT file)
                         </label>
                         <div class="file-input-wrapper">
                             <input 
                                 type="file" 
                                 name="credit_report" 
                                 id="credit_report" 
-                                accept=".pdf"
+                                accept=".pdf,.html,.htm,.txt"
                                 required
                                 class="form-control"
                             >
@@ -265,7 +265,7 @@
                         @enderror
                         <p class="help-text">
                             <i class="bi bi-info-circle me-1"></i>
-                            Maximum file size: 20MB. Only PDF files from IdentityIQ are supported.
+                            Maximum file size: 20MB. PDF, HTML, and TXT files from IdentityIQ are supported.
                         </p>
                     </div>
 
@@ -274,8 +274,8 @@
                         <ol>
                             <li>Log in to your IdentityIQ account</li>
                             <li>Navigate to your credit report</li>
-                            <li>Click "Download" or "Print" -> "Save as PDF"</li>
-                            <li>Upload the downloaded PDF file here</li>
+                            <li>Click "Download" or "Print" -> "Save as PDF" (or save the page source as HTML)</li>
+                            <li>Upload the PDF or HTML file here</li>
                         </ol>
                     </div>
 
