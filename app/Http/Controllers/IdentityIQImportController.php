@@ -328,10 +328,7 @@ class IdentityIQImportController extends Controller
         ));
     }
 
-    /**
-     * Delete a credit report and all associated data
-     */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $user = Auth::user();
         $creditReport = CreditReport::where('user_id', $user->id)
@@ -345,6 +342,13 @@ class IdentityIQImportController extends Controller
 
         // Delete the record (cascade will handle related records)
         $creditReport->delete();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Credit report deleted successfully.'
+            ]);
+        }
 
         return redirect()->route('identityiq.import')
             ->with('success', 'Credit report deleted successfully.');

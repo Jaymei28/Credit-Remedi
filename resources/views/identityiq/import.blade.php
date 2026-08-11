@@ -361,7 +361,7 @@
                                             </form>
                                         @endif
                                     @endif
-                                    <form action="{{ route('identityiq.report.delete', $report->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this report?');" class="mb-0">
+                                    <form action="{{ route('identityiq.report.delete', $report->id) }}" method="POST" class="delete-report-form mb-0">
                                         @csrf
                                         @method('DELETE')
                                         <button 
@@ -397,6 +397,62 @@
                 `;
             });
         }
+
+        // Intercept delete form submits
+        document.querySelectorAll('.delete-report-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                if (!confirm('Are you sure you want to delete this report?')) {
+                    return;
+                }
+
+                const formAction = this.action;
+                const btn = this.querySelector('button');
+                const card = this.closest('.report-card');
+
+                // Disable button
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+
+                fetch(formAction, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': this.querySelector('input[name="_token"]').value,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    body: new FormData(this)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+
+                    if (data.success) {
+                        // Smoothly remove card from DOM
+                        card.style.transition = 'all 0.3s ease';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            card.remove();
+                            // If no report cards left, reload to show empty state container
+                            if (document.querySelectorAll('.report-card').length === 0) {
+                                window.location.reload();
+                            }
+                        }, 300);
+                    } else {
+                        alert('Failed to delete report: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    console.error('Error deleting report:', error);
+                    alert('An error occurred while deleting the report.');
+                });
+            });
+        });
     });
 </script>
 @endsection
